@@ -1,0 +1,10 @@
+package com.example.customerService.repository;
+
+import com.example.customerService.entity.CustomerEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CustomerRepository extends JpaRepository<CustomerEntity, String> {
+    CustomerEntity findByEmail(String email);
+}

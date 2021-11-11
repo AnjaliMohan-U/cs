@@ -8,6 +8,8 @@ import javax.persistence.*;
 @Table(name = "inventory")
 public class InventoryEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long inventoryId;
     @Column
     private String quantityAvailable;
     @OneToOne

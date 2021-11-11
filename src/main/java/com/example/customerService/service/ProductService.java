@@ -106,15 +106,28 @@ public class ProductService {
     //----------------------------------------Inventory Service-------------------------------------------------//
 
     public ResponseEntity<String> addStock(String skuCode, InventoryModel inventoryModel) {
-        Optional<SkuEntity> sku = skuRepository.findById(skuCode);
-        if (sku.isPresent()) {
+        SkuEntity sku = skuRepository.findBySkuCode(skuCode);
+        if (sku!=null) {
             InventoryEntity inventory = new InventoryEntity();
             inventory.setQuantityAvailable(inventoryModel.getQuantityAvailable());
-            inventory.setSkuEntity(sku.get());
-            sku.get().setInventoryEntity(inventory);
-            skuRepository.save(sku.get());
+            inventory.setSkuEntity(sku);
+            sku.setInventoryEntity(inventory);
+            skuRepository.save(sku);
             return ResponseEntity.status(HttpStatus.CREATED).body("Inventory added successfully!");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("sku not found!");
     }
 }
+
+//    public ResponseEntity<String> addStock(String skuCode, InventoryModel inventoryModel) {
+//        Optional<SkuEntity> sku = skuRepository.findById(skuCode);
+//        if (sku.isPresent()) {
+//            InventoryEntity inventory = new InventoryEntity();
+//            inventory.setQuantityAvailable(inventoryModel.getQuantityAvailable());
+//            inventory.setSkuEntity(sku.get());
+//            sku.get().setInventoryEntity(inventory);
+//            skuRepository.save(sku.get());
+//            return ResponseEntity.status(HttpStatus.CREATED).body("Inventory added successfully!");
+//        }
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("sku not found!");
+//    }

@@ -1,19 +1,77 @@
 package com.example.customerService;
 
-import com.example.customerService.entity.InventoryEntity;
-import com.example.customerService.entity.PriceEntity;
-import com.example.customerService.entity.ProductsEntity;
-import com.example.customerService.entity.SkuEntity;
-import com.example.customerService.model.InventoryModel;
-import com.example.customerService.model.PriceModel;
-import com.example.customerService.model.ProductModel;
-import com.example.customerService.model.SkuModel;
+import com.example.customerService.entity.*;
+import com.example.customerService.model.*;
+import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
+import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class Details {
+
+    public static CustomerModel getCustomerModel(){
+        CustomerModel customer = new CustomerModel();
+        customer.setFirstName("Anjali Mohan");
+        customer.setLastName("Uppu");
+        customer.setEmail("anjali@gmail.com");
+
+        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+        SimpleStringPBEConfig config = new SimpleStringPBEConfig();
+        config.setPassword("cjss_encryption"); // encryptor's private key
+        config.setAlgorithm("PBEWithMD5AndDES");
+        config.setKeyObtentionIterations("1000");
+        config.setPoolSize("1");
+        config.setProviderName("SunJCE");
+        config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
+        config.setStringOutputType("base64");
+        encryptor.setConfig(config);
+
+        String data = "password";
+        String encryptedData = encryptor.encrypt(data);
+        customer.setPassword(encryptedData);
+        customer.setMobileNumber(8978605045l);
+        return customer;
+    }
+
+    public static AddressModel getAddressModel(){
+        AddressModel addressModel = new AddressModel();
+        addressModel.setLine1("spring valley");
+        addressModel.setLine2("sairam colony");
+        addressModel.setCity("vizag");
+        addressModel.setState("andhra");
+        addressModel.setPostalCode("530048");
+        addressModel.setBillingAddress(true);
+        addressModel.setShippingAddress(true);
+        return addressModel;
+    }
+
+    public static CustomerEntity getCustomerEntity(){
+        CustomerEntity customer = new CustomerEntity();
+        CustomerModel c = getCustomerModel();
+        customer.setFirstName(c.getFirstName());
+        customer.setLastName(c.getLastName());
+        customer.setEmail(c.getEmail());
+        customer.setPassword(c.getPassword());
+        customer.setMobileNumber(c.getMobileNumber());
+
+        List<AddressEntity> addressEntities = new ArrayList<>();
+        AddressModel a = getAddressModel();
+        AddressEntity address = new AddressEntity();
+        address.setLine1(a.getLine1());
+        address.setLine2(a.getLine2());
+        address.setCity(a.getCity());
+        address.setState(a.getState());
+        address.setPostalCode(a.getPostalCode());
+        address.setBillingAddress(a.getBillingAddress());
+        address.setShippingAddress(a.getShippingAddress());
+        address.setCustomerEntity(customer);
+        addressEntities.add(address);
+
+        customer.setAddressEntityList(addressEntities);
+        return customer;
+    }
 
     public static ProductModel getProductModel(){
         ProductModel prod = new ProductModel();
@@ -73,6 +131,10 @@ public class Details {
         skuEntities.add(sku);
         products.setSkuEntityList(skuEntities);
         return products;
-
     }
+
+
+
+
+
 }

@@ -24,6 +24,7 @@ public class CustomerModel {
     private String password;
     private List<AddressModel> addressModelList;
     private List<CartModel> cartModels;
+    private List<OrderModel> orderModels;
 
     public List<AddressModel> getAddressModelList() {
         return addressModelList;
@@ -81,6 +82,14 @@ public class CustomerModel {
         this.cartModels = cartModels;
     }
 
+    public List<OrderModel> getOrderModels() {
+        return orderModels;
+    }
+
+    public void setOrderModels(List<OrderModel> orderModels) {
+        this.orderModels = orderModels;
+    }
+
     @Override
     public String toString() {
         return "CustomerModel{" +
@@ -91,6 +100,7 @@ public class CustomerModel {
                 ", password='" + password + '\'' +
                 ", addressModelList=" + addressModelList +
                 ", cartModels=" + cartModels +
+                ", orderModels=" + orderModels +
                 '}';
     }
 }

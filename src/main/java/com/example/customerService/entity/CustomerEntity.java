@@ -1,5 +1,7 @@
 package com.example.customerService.entity;
 
+import org.aspectj.weaver.ast.Or;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -22,6 +24,8 @@ public class CustomerEntity {
     private List<AddressEntity> addressEntityList;
     @OneToMany(mappedBy = "customerEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CartEntity> cartEntities;
+    @OneToMany(mappedBy = "customerEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+    private List<OrderEntity> orderEntities;
 
     public CustomerEntity() {
     }
@@ -80,5 +84,13 @@ public class CustomerEntity {
 
     public void setCartEntities(List<CartEntity> cartEntities) {
         this.cartEntities = cartEntities;
+    }
+
+    public List<OrderEntity> getOrderEntities() {
+        return orderEntities;
+    }
+
+    public void setOrderEntities(List<OrderEntity> orderEntities) {
+        this.orderEntities = orderEntities;
     }
 }

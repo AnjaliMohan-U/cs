@@ -91,8 +91,8 @@ public class AccountService {
     //----------------------------------------add address to customer-------------------------------------------------//
 
     public CustomerEntity addCustomerAddress(String email, AddressModel address) {
-        Optional<CustomerEntity> c1 = customerRepository.findById(email);
-        if(c1.isPresent()){
+        CustomerEntity c1 = customerRepository.findByEmail(email);
+        if(c1!=null){
             System.out.println("entered if :"+ address.getCity());
             List<AddressEntity> addressEntityList = new ArrayList<>();
             AddressEntity a1 = new AddressEntity();
@@ -103,11 +103,11 @@ public class AccountService {
             a1.setPostalCode(address.getPostalCode());
             a1.setBillingAddress(address.getBillingAddress());
             a1.setShippingAddress(address.getShippingAddress());
-            a1.setCustomerEntity(c1.get());
+            a1.setCustomerEntity(c1);
             addressEntityList.add(a1);
-            c1.get().setAddressEntityList(addressEntityList);
+            c1.setAddressEntityList(addressEntityList);
             System.out.println("HI");
-            return customerRepository.save(c1.get());
+            return customerRepository.save(c1);
         }
         System.out.println("out without executing");
         return null;
@@ -172,4 +172,26 @@ public class AccountService {
 
 
 }
-
+//
+//    public CustomerEntity addCustomerAddress(String email, AddressModel address) {
+//        Optional<CustomerEntity> c1 = customerRepository.findById(email);
+//        if(c1.isPresent()){
+//            System.out.println("entered if :"+ address.getCity());
+//            List<AddressEntity> addressEntityList = new ArrayList<>();
+//            AddressEntity a1 = new AddressEntity();
+//            a1.setLine1(address.getLine1());
+//            a1.setLine2(address.getLine2());
+//            a1.setState(address.getState());
+//            a1.setCity(address.getCity());
+//            a1.setPostalCode(address.getPostalCode());
+//            a1.setBillingAddress(address.getBillingAddress());
+//            a1.setShippingAddress(address.getShippingAddress());
+//            a1.setCustomerEntity(c1.get());
+//            addressEntityList.add(a1);
+//            c1.get().setAddressEntityList(addressEntityList);
+//            System.out.println("HI");
+//            return customerRepository.save(c1.get());
+//        }
+//        System.out.println("out without executing");
+//        return null;
+//    }

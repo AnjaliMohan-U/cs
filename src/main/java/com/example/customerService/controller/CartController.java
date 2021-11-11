@@ -22,4 +22,10 @@ public class CartController {
     public String viewCart(@RequestParam String email){
         return cartService.viewCart(email);
     }
+
+    //API - to place order
+    @PostMapping("/place-order")
+    public ResponseEntity<String> placeOrder(@RequestParam String email, Long addressId){
+        return cartService.placeOrder(email, addressId);
+    }
 }

@@ -27,7 +27,7 @@ public class AccountController {
 
     //API to add customer address
     @PatchMapping("/addAddress")
-    public CustomerEntity addCustomerAddress(@RequestParam String email, @RequestBody AddressModel address){
+    public CustomerEntity addCustomerAddress(@Valid @RequestParam String email, @RequestBody AddressModel address){
         return accountService.addCustomerAddress(email, address);
     }
 

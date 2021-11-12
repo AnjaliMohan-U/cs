@@ -8,11 +8,16 @@ package com.example.customerService.model;
 // shippingAddress(true/false),
 // billingAddress(true/false)
 
+import javax.validation.constraints.NotNull;
+
 public class AddressModel {
     private String line1;
     private String line2;
+    @NotNull
     private String postalCode;
+    @NotNull
     private String state;
+    @NotNull
     private String city;
     private Boolean shippingAddress;
     private Boolean billingAddress;

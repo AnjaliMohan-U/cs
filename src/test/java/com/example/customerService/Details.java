@@ -11,6 +11,8 @@ import java.util.Optional;
 
 public class Details {
 
+    //------------------------------Customer details for accountService Test-------------------------------------//
+
     public static CustomerModel getCustomerModel(){
         CustomerModel customer = new CustomerModel();
         customer.setFirstName("Anjali Mohan");
@@ -73,6 +75,8 @@ public class Details {
         return customer;
     }
 
+    //------------------------------Product details for productService Test-------------------------------------//
+
     public static ProductModel getProductModel(){
         ProductModel prod = new ProductModel();
         prod.setProductCode("p1");
@@ -133,6 +137,73 @@ public class Details {
         return products;
     }
 
+    //------------------------------Cart details for cartService Test-------------------------------------//
+
+    public static CartModel getCartModel(){
+        CartModel cart = new CartModel();
+        cart.setProductCode("p1");
+        cart.setSkuCode("s1");
+        cart.setQuantity("10");
+        return cart;
+    }
+
+    public static CartEntity getCartEntity(){
+        CartEntity cart = new CartEntity();
+        CartModel cartModel = getCartModel();
+        cart.setProductCode(cartModel.getProductCode());
+        cart.setSkuCode(cartModel.getSkuCode());
+        cart.setQuantity(cartModel.getQuantity());
+        cart.setCustomerEntity(getCustomerEntity());
+        return cart;
+    }
+
+    public static List<CartEntity> getCartEntities(){
+        List<CartEntity> cartEntities = new ArrayList<>();
+        CartEntity cart = getCartEntity();
+        cartEntities.add(cart);
+        return cartEntities;
+    }
+
+    //------------------------------Order details for placing order Test-------------------------------------//
+
+    public static OrderModel getOrderModel(){
+        OrderModel orderModel = new OrderModel();
+        ShippingModel shippingModel = getShippingModel();
+        CustomerModel customerModel = getCustomerModel();
+        orderModel.setOrderStatus("Received");
+        orderModel.setShippingModel(shippingModel);
+        orderModel.setCustomerModel(customerModel);
+        return orderModel;
+    }
+
+    public static ShippingModel getShippingModel(){
+        ShippingModel shipping = new ShippingModel();
+        AddressModel addressModel = Details.getAddressModel();
+        shipping.setLine1(addressModel.getLine1());
+        shipping.setLine2(addressModel.getLine2());
+        shipping.setCity(addressModel.getCity());
+        shipping.setState(addressModel.getState());
+        shipping.setPostalCode(addressModel.getState());
+        return shipping;
+    }
+
+    public static OrderEntity getOrderEntity(){
+        OrderEntity orderEntity = new OrderEntity();
+        ShippingEntity shippingEntity = new ShippingEntity();
+        CustomerEntity customer = getCustomerEntity();
+        OrderModel order = getOrderModel();
+        ShippingModel shippingModel = getShippingModel();
+        shippingEntity.setLine1(shippingModel.getLine1());
+        shippingEntity.setLine2(shippingModel.getLine2());
+        shippingEntity.setCity(shippingModel.getCity());
+        shippingEntity.setState(shippingModel.getState());
+        shippingEntity.setPostalCode(shippingModel.getPostalCode());
+
+        orderEntity.setOrderStatus(order.getOrderStatus());
+        orderEntity.setShippingEntity(shippingEntity);
+        orderEntity.setCustomerEntity(customer);
+        return orderEntity;
+    }
 
 
 

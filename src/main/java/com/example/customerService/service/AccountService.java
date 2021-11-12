@@ -107,6 +107,7 @@ public class AccountService {
             addressEntityList.add(a1);
             c1.setAddressEntityList(addressEntityList);
             System.out.println("HI");
+            System.out.println(address.toString());
             return customerRepository.save(c1);
         }
         System.out.println("out without executing");

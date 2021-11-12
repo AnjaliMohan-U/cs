@@ -81,7 +81,7 @@ public class CartService {
             System.out.println(price.getPrice());
             System.out.println(cartProduct.getQuantity());
             System.out.println("sub total " + price.getPrice()*Integer.parseInt(cartProduct.getQuantity()));
-            viewCart.set(viewCart +"\n"+"product name : " + product.getProductName() +"\t"+ " price : " + price.getPrice() + "\t" + "quantity : " + cartProduct.getQuantity() +"\t" +
+            viewCart.set(viewCart +"\n"+"product name : " + product.getProductName() + " price : " + price.getPrice() + "quantity : " + cartProduct.getQuantity() +
                     " sub total : " + price.getPrice()*Integer.parseInt(cartProduct.getQuantity()));
             total.updateAndGet(v -> v + price.getPrice() * Integer.parseInt(cartProduct.getQuantity()));
         });
